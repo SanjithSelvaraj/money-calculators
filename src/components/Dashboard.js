@@ -3,10 +3,10 @@ import {
   AppBar,
   Toolbar,
   Typography,
-  Drawer,
-  List,
-  ListItem,
-  ListItemText,
+  // Drawer,
+  // List,
+  // ListItem,
+  // ListItemText,
   IconButton,
   Box,
   CssBaseline,
@@ -17,37 +17,40 @@ import {
   Button,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
+import Sidebar from "./Sidebar";
+import SIPCalculator from "../pages/SIPCalculator";
 
-const drawerWidth = 300;
+// const drawerWidth = 300;
 
-const onClickFuntion = (listItem, toggleDrawer) => {
-  toggleDrawer();
-};
+// const onClickFuntion = (listItem, toggleDrawer, keyValue, setSelectedTab) => {
+//   toggleDrawer();
+//   setSelectedTab(keyValue);
+// };
 
-const Sidebar = ({ open, toggleDrawer }) => (
-  <Drawer
-    variant="temporary"
-    open={open}
-    onClose={toggleDrawer}
-    sx={{
-      width: drawerWidth,
-      flexShrink: 0,
-      [`& .MuiDrawer-paper`]: { width: drawerWidth, boxSizing: "border-box" },
-    }}
-  >
-    <Toolbar>
-      <Box component="img" src="/images/rupee-logo.jpg" alt="Logo" sx={{ height: 40, marginRight: 2 }} />
-      <Typography variant="h6">Money Calculators</Typography>
-    </Toolbar>
-    <List>
-      {["SIP Calculator", "Step-Up SIP Calculator", "SIP Calculator with Inflation Adjustment", "Inflation Calculator", "Target SIP Calculator", "SWP Calculator", "SWP Calculator with Inflation Adjustment"].map((text) => (
-        <ListItem button key={text} onClick={() => onClickFuntion(text, toggleDrawer)}>
-          <ListItemText primary={text} />
-        </ListItem>
-      ))}
-    </List>
-  </Drawer>
-);
+// const Sidebar = ({ open, toggleDrawer, setSelectedTab }) => (
+//   <Drawer
+//     variant="temporary"
+//     open={open}
+//     onClose={toggleDrawer}
+//     sx={{
+//       width: drawerWidth,
+//       flexShrink: 0,
+//       [`& .MuiDrawer-paper`]: { width: drawerWidth, boxSizing: "border-box" },
+//     }}
+//   >
+//     <Toolbar>
+//       <Box component="img" src="/images/rupee-logo.jpg" alt="Logo" sx={{ height: 40, marginRight: 2 }} />
+//       <Typography variant="h6">Money Calculators</Typography>
+//     </Toolbar>
+//     <List>
+//       {["SIP Calculator", "Step-Up SIP Calculator", "SIP Calculator with Inflation Adjustment", "Inflation Calculator", "Target SIP Calculator", "SWP Calculator", "SWP Calculator with Inflation Adjustment"].map((text, index) => (
+//         <ListItem button key={index} onClick={() => onClickFuntion(text, toggleDrawer, index, setSelectedTab)}>
+//           <ListItemText primary={text} />
+//         </ListItem>
+//       ))}
+//     </List>
+//   </Drawer>
+// );
 
 const Dashboard = () => {
   const [open, setOpen] = useState(false);
@@ -70,7 +73,7 @@ const Dashboard = () => {
           </Typography>
         </Toolbar>
       </AppBar>
-      <Sidebar open={open} toggleDrawer={toggleDrawer} />
+      <Sidebar open={open} toggleDrawer={toggleDrawer}  setSelectedTab={setSelectedTab}/>
       <Box component="main" sx={{ flexGrow: 1, p: 3, mt: 8 }}>
         <Container>
           <Typography variant="h4" gutterBottom>
@@ -96,15 +99,7 @@ const Dashboard = () => {
   );
 };
 
-const SIPCalculator = () => (
-  <Box>
-    <Typography variant="h6">SIP Calculator</Typography>
-    <TextField label="Monthly Investment" fullWidth margin="normal" />
-    <TextField label="Expected Return (%)" fullWidth margin="normal" />
-    <TextField label="Investment Duration (Years)" fullWidth margin="normal" />
-    <Button variant="contained" color="primary">Calculate</Button>
-  </Box>
-);
+
 
 const StepUpSIPCalculator = () => (
   <Box>
