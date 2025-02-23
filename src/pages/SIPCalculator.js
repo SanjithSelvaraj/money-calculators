@@ -1,11 +1,14 @@
 import React, { useState } from "react";
-import { Typography, Box, TextField, Button } from "@mui/material";
+import { Typography, Box, TextField, Button, useMediaQuery, useTheme } from "@mui/material";
 
 const SIPCalculator = () => {
     const [monthlyInvestment, setMonthlyInvestment] = useState("");
     const [expectedReturn, setExpectedReturn] = useState("");
     const [duration, setDuration] = useState("");
     const [result, setResult] = useState(null);
+
+    const theme = useTheme();
+    const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
     const calculateSIP = () => {
         const P = parseFloat(monthlyInvestment);
@@ -23,13 +26,17 @@ const SIPCalculator = () => {
             const FV = P * n;
             setResult(FV.toFixed(2));
         }
-
-
-
     };
 
     return (
-        <Box p={3} boxShadow={3} borderRadius={2} maxWidth={400} mx="auto">
+        <Box 
+            p={isMobile ? 2 : 3} 
+            boxShadow={3} 
+            borderRadius={2} 
+            maxWidth={isMobile ? "90%" : 400} 
+            mx="auto"
+            textAlign="center"
+        >
             <Typography variant="h6" gutterBottom>
                 SIP Calculator
             </Typography>
@@ -59,7 +66,6 @@ const SIPCalculator = () => {
                 value={duration}
                 onChange={(e) => setDuration(e.target.value)}
                 type="number"
-                
             />
 
             <Button
@@ -71,6 +77,7 @@ const SIPCalculator = () => {
             > 
                 Calculate
             </Button>
+            
             {result !== null && (
                 <Typography variant="h6" color="primary" mt={2}>
                     Returns: ₹{result}

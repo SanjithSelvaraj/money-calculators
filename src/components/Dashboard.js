@@ -3,10 +3,6 @@ import {
   AppBar,
   Toolbar,
   Typography,
-  // Drawer,
-  // List,
-  // ListItem,
-  // ListItemText,
   IconButton,
   Box,
   CssBaseline,
@@ -15,75 +11,84 @@ import {
   Container,
   TextField,
   Button,
+  Drawer,
+  useMediaQuery,
+  useTheme,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import Sidebar from "./Sidebar";
 import SIPCalculator from "../pages/SIPCalculator";
 
-// const drawerWidth = 300;
-
-// const onClickFuntion = (listItem, toggleDrawer, keyValue, setSelectedTab) => {
-//   toggleDrawer();
-//   setSelectedTab(keyValue);
-// };
-
-// const Sidebar = ({ open, toggleDrawer, setSelectedTab }) => (
-//   <Drawer
-//     variant="temporary"
-//     open={open}
-//     onClose={toggleDrawer}
-//     sx={{
-//       width: drawerWidth,
-//       flexShrink: 0,
-//       [`& .MuiDrawer-paper`]: { width: drawerWidth, boxSizing: "border-box" },
-//     }}
-//   >
-//     <Toolbar>
-//       <Box component="img" src="/images/rupee-logo.jpg" alt="Logo" sx={{ height: 40, marginRight: 2 }} />
-//       <Typography variant="h6">Money Calculators</Typography>
-//     </Toolbar>
-//     <List>
-//       {["SIP Calculator", "Step-Up SIP Calculator", "SIP Calculator with Inflation Adjustment", "Inflation Calculator", "Target SIP Calculator", "SWP Calculator", "SWP Calculator with Inflation Adjustment"].map((text, index) => (
-//         <ListItem button key={index} onClick={() => onClickFuntion(text, toggleDrawer, index, setSelectedTab)}>
-//           <ListItemText primary={text} />
-//         </ListItem>
-//       ))}
-//     </List>
-//   </Drawer>
-// );
-
 const Dashboard = () => {
   const [open, setOpen] = useState(false);
   const [selectedTab, setSelectedTab] = useState(0);
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   const toggleDrawer = () => {
     setOpen(!open);
   };
 
   return (
-    <Box sx={{ display: "flex" }}>
+    <Box sx={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
       <CssBaseline />
+      
+      {/* Responsive AppBar */}
       <AppBar position="fixed" sx={{ width: "100%" }}>
         <Toolbar>
-          <IconButton color="inherit" edge="start" onClick={toggleDrawer}>
-            <MenuIcon />
-          </IconButton>
+          {isMobile && (
+            <IconButton color="inherit" edge="start" onClick={toggleDrawer}>
+              <MenuIcon />
+            </IconButton>
+          )}
           <Typography variant="h6" noWrap>
-            Money Calculators
+            Financial Calculators
           </Typography>
         </Toolbar>
       </AppBar>
-      <Sidebar open={open} toggleDrawer={toggleDrawer}  setSelectedTab={setSelectedTab}/>
+
+      {/* Responsive Sidebar */}
+      <Drawer
+        anchor="left"
+        open={open}
+        onClose={toggleDrawer}
+        variant={isMobile ? "temporary" : "permanent"}
+        sx={{
+          width: isMobile ? "auto" : 240,
+          "& .MuiDrawer-paper": { width: 240 },
+        }}
+      >
+        <Sidebar open={open} toggleDrawer={toggleDrawer} setSelectedTab={setSelectedTab} />
+      </Drawer>
+
+      {/* Main Content */}
       <Box component="main" sx={{ flexGrow: 1, p: 3, mt: 8 }}>
-        <Container>
-          <Typography variant="h4" gutterBottom>
+        <Container maxWidth="md">
+          <Typography variant="h4" gutterBottom align="center">
             Financial Calculators
           </Typography>
-          <Tabs value={selectedTab} onChange={(e, newValue) => setSelectedTab(newValue)} variant="scrollable" scrollButtons="auto">
-            {["SIP Calculator", "Step-Up SIP Calculator", "SIP Calculator with Inflation Adjustment", "Inflation Calculator", "Target SIP Calculator", "SWP Calculator", "SWP Calculator with Inflation Adjustment"].map((calc, index) => (
+
+          {/* Responsive Tabs */}
+          <Tabs
+            value={selectedTab}
+            onChange={(e, newValue) => setSelectedTab(newValue)}
+            variant="scrollable"
+            scrollButtons="auto"
+          >
+            {[
+              "SIP Calculator",
+              "Step-Up SIP Calculator",
+              "SIP Calculator with Inflation Adjustment",
+              "Inflation Calculator",
+              "Target SIP Calculator",
+              "SWP Calculator",
+              "SWP Calculator with Inflation Adjustment",
+            ].map((calc, index) => (
               <Tab key={index} label={calc} />
             ))}
           </Tabs>
+
+          {/* Tab Content */}
           <Box mt={3}>
             {selectedTab === 0 && <SIPCalculator />}
             {selectedTab === 1 && <StepUpSIPCalculator />}
