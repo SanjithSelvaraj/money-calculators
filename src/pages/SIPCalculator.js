@@ -68,7 +68,7 @@ const SIPCalculator = () => {
                 fullWidth
                 sx={{ mt: 2 }}
                 onClick={calculateSIP}
-            >
+            > 
                 Calculate
             </Button>
             {result !== null && (
