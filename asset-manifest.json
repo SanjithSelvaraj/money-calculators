@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/money-calculators/static/css/main.686d230e.css",
-    "main.js": "/money-calculators/static/js/main.1e930217.js",
+    "main.js": "/money-calculators/static/js/main.c7db8c58.js",
     "index.html": "/money-calculators/index.html",
     "main.686d230e.css.map": "/money-calculators/static/css/main.686d230e.css.map",
-    "main.1e930217.js.map": "/money-calculators/static/js/main.1e930217.js.map"
+    "main.c7db8c58.js.map": "/money-calculators/static/js/main.c7db8c58.js.map"
   },
   "entrypoints": [
     "static/css/main.686d230e.css",
-    "static/js/main.1e930217.js"
+    "static/js/main.c7db8c58.js"
   ]
 }
